@@ -1,6 +1,6 @@
 <script setup>
 import { ref, reactive, watch, onMounted } from "vue";
-// import { uid } from "uid";
+import { uid } from "uid";
 import Header from "./components/Header.vue";
 import Formulario from "./components/Formulario.vue";
 import Paciente from "./components/Paciente.vue";
@@ -8,7 +8,7 @@ import Paciente from "./components/Paciente.vue";
 const pacientes = ref([]);
 
 const paciente = reactive({
-    // id: null,
+    id: null,
     nombre: "",
     propietario: "",
     email: "",
@@ -37,10 +37,7 @@ const guardarPaciente = () => {
         const i = pacientes.value.findIndex(paciente => paciente.id === id);
         pacientes.value[i] = { ...paciente };
     } else {
-        pacientes.value.push({
-            ...paciente,
-            // , id: uid()
-        });
+        pacientes.value.push({ ...paciente, id: uid() });
     }
 
     // Reiniciar objecto
@@ -88,7 +85,7 @@ const eliminarPaciente = (id) => {
                     <Paciente v-for="paciente in pacientes" :paciente="paciente"
                         @actualizarPaciente="actualizarPaciente" @eliminarPaciente="eliminarPaciente" />
                 </div>
-                <p v-else class="mt-10 text-2xl text-center">No hay pacientes</p>
+                <p v-else class="mt-10 text-xl text-center">No hay pacientes</p>
             </div>
         </div>
     </div>
